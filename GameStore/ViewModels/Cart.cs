@@ -1,6 +1,6 @@
 ﻿using GameStore.Data.Entities;
 
-namespace GameStore.ViewModel
+namespace GameStore.ViewModels
 {
     public class Cart
     {

@@ -1,5 +1,5 @@
 using GameStore.Data;
-using GameStore.ViewModel;
+using GameStore.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +18,6 @@ namespace GameStore
                     builder.Configuration.GetConnectionString("StoreConnection"));
             });
 
-            builder.Services.AddRazorPages();
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
             builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
@@ -34,8 +33,6 @@ namespace GameStore
                 app.UseExceptionHandler("/error");
             }
 
-            app.Run();
-
             app.UseStaticFiles();
             app.UseSession();
 
@@ -43,12 +40,11 @@ namespace GameStore
             app.UseAuthorization();
 
             app.MapDefaultControllerRoute();
-            app.MapRazorPages();
-
-            app.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 
             //SeedData.EnsurePopulated(app);
             //IdentitySeedData.EnsurePopulated(app);
+
+            app.Run();
         }
     }
 }

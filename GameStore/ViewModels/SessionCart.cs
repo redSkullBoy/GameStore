@@ -1,9 +1,8 @@
 ﻿using GameStore.Data.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace GameStore.ViewModel
+namespace GameStore.ViewModels
 {
     public class SessionCart : Cart
     {

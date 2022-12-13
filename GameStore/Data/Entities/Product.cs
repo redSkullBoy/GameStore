@@ -5,7 +5,7 @@ namespace GameStore.Data.Entities
 {
     public class Product
     {
-        public long? ProductID { get; set; }
+        public int ProductID { get; set; }
 
         [Required(ErrorMessage = "Пожалуйста, введите название продукта")]
         public string Name { get; set; } = String.Empty;

@@ -1,4 +1,4 @@
-﻿namespace GameStore.ViewModel
+﻿namespace GameStore.ViewModels
 {
     public class PagingInfo
     {
