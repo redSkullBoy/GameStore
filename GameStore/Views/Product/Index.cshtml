@@ -1,12 +1,34 @@
 ﻿@model ProductsListViewModel
 
-@foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
-{
-        <partial name="ProductSummary" model="p" />
-}
+<!-- Main content -->
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div id="categories" class="col-3">
+                <!-- Section-->
+                <section class="py-5">
+                    @await Component.InvokeAsync("NavigationMenu", new { currentCategory = @Model?.CurrentCategory})
+                </section>
+            </div>
+            <div class="col-9">
+                <!-- Section-->
+                <section class="py-5">
+                    <div class="row">
 
-<div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
-     page-class="btn" page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary" page-url-category="@Model?.CurrentCategory!"
-     class="btn-group pull-right m-1">
+                        @foreach (var p in Model?.Products ?? Enumerable.Empty<Product>())
+                        {
+                                <partial name="ProductSummary" model="p" />
+                        }
+                    </div>
+                </section>
+
+                <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
+                     page-class="btn" page-class-normal="btn-outline-dark"
+                     page-class-selected="btn-primary" page-url-category="@Model?.CurrentCategory!"
+                     class="btn-group pull-right m-1">
+                </div>
+
+            </div>
+        </div> 
+    </div>
 </div>

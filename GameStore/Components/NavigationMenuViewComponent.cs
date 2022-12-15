@@ -13,9 +13,9 @@ namespace GameStore.Components
             _context = context;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string currentCategory)
         {
-            ViewBag.SelectedCategory = RouteData?.Values["category"];
+            ViewBag.SelectedCategory = currentCategory;
 
             var result = _context.Products
                 .Select(x => x.Category)
