@@ -41,7 +41,7 @@ namespace GameStore
 
             app.MapDefaultControllerRoute();
 
-            //SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app);
             //IdentitySeedData.EnsurePopulated(app);
 
             app.Run();

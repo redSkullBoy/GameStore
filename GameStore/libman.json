@@ -11,8 +11,19 @@
       ]
     },
     {
-      "library": "font-awesome@5.15.4",
-      "destination": "wwwroot/lib/font-awesome/"
+        "library": "font-awesome@5.15.4",
+        "destination": "wwwroot/lib/font-awesome/",
+        "files": [
+            "css/all.min.css",
+            "webfonts/fa-brands-400.eot",
+            "webfonts/fa-brands-400.svg",
+            "webfonts/fa-brands-400.ttf",
+            "webfonts/fa-brands-400.woff",
+            "webfonts/fa-brands-400.woff2",
+            "webfonts/fa-solid-900.woff",
+            "webfonts/fa-solid-900.woff2",
+            "webfonts/fa-solid-900.ttf"
+        ]
     },
     {
       "library": "admin-lte@3.2.0",

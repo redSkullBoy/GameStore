@@ -20,14 +20,14 @@
                                 <partial name="ProductSummary" model="p" />
                         }
                     </div>
+
+                    <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
+                         page-class="btn" page-class-normal="btn-ligh m-2"
+                         page-class-selected="btn-primary m-2" page-url-category="@Model?.CurrentCategory!"
+                         class="p-3">
+                   </div>
+
                 </section>
-
-                <div page-model="@Model?.PagingInfo" page-action="Index" page-classes-enabled="true"
-                     page-class="btn" page-class-normal="btn-outline-dark"
-                     page-class-selected="btn-primary" page-url-category="@Model?.CurrentCategory!"
-                     class="btn-group pull-right m-1">
-                </div>
-
             </div>
         </div> 
     </div>

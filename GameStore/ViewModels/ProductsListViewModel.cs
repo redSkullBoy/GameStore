@@ -9,5 +9,6 @@ namespace GameStore.ViewModels
 
         public PagingInfo PagingInfo { get; set; } = new();
         public string? CurrentCategory { get; set; }
+        public string? Search { get; set; }
     }
 }

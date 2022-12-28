@@ -7,22 +7,35 @@
 }
 
 <div class="col-lg-4 col-md-6 mb-4">
-    <div class="card h-100">
-        <a href="#!"><img class="card-img-top" src="https://via.placeholder.com/700x400" alt="..." /></a>
-        <div class="card-body text-center d-flex flex-column">
-            <p class="card-title"><a class="text-dark font-weight-bold" href="#!">@Model.Name</a></p>
+    <div class="card">
+        <a asp-action="Details" asp-controller="Product" asp-route-id="@Model.ProductID" asp-route-returnUrl="@PathAndQuery">
+            <img class="card-img-top" src="https://dummyimage.com/300x200/d81b60/ffffff.png" alt="..." />
+        </a>
+        <div class="card-body">
+            <p class="card-title">
+                <a class="text-dark font-weight-bold"
+                    asp-action="Details"
+                    asp-controller="Product"
+                    asp-route-id="@Model.ProductID"
+                    asp-route-returnUrl="@PathAndQuery"
+                >
+                   @Model.Name
+                </a>
+            </p>
+            <div class="card-text text-center">
+                <h3 class="text-maroon">★ ★ ★ ★ ☆</h3>
 
-            <h3 class="text-maroon">★ ★ ★ ★ ☆</h3>
-
-            <p class="">@Model.Price.ToString("c")</p>
-        
-            <!-- Product actions-->
+                <p class="">@Model.Price.ToString("c")</p>
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <form id="@Model.ProductID" asp-action="AddToCart"
-              asp-controller="Cart" method="post">
+                asp-controller="Cart" method="post">
                 <input type="hidden" asp-for="ProductID" />
                 <input type="hidden" name="returnUrl" value="@PathAndQuery"/>
 
-                <button class="btn btn-outline-dark mt-auto">В корзину</button>
+                <button class="btn btn-primary">В корзину</button>
             </form>
         </div>
     </div>

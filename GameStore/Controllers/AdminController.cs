@@ -1,7 +1,9 @@
 ﻿using GameStore.Data;
 using GameStore.Data.Entities;
+using GameStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
 
 namespace GameStore.Controllers
 {
@@ -14,11 +16,33 @@ namespace GameStore.Controllers
             _context = context;
         }
 
-        public ViewResult Index() => View(_context.Products);
+        public ViewResult Index(string? search = null)
+        {
+            var products = _context.Products
+                    .OrderBy(p => p.ProductID);
 
-        public ViewResult Edit(int productId) =>
-            View(_context.Products
-                .FirstOrDefault(p => p.ProductID == productId));
+            if (null != search)
+            {
+                products = (IOrderedQueryable<Data.Entities.Product>)products.Where(s => s.Name.Contains(search));
+            }
+
+            var result = new ProductsListViewModel
+            {
+                Products = products,
+                Search = search,
+            };
+
+            return View(result);
+        }
+
+        public ViewResult Edit(int productId) 
+        {
+            var product = _context.Products
+                .Include(p => p.Image)
+                .FirstOrDefault(p => p.ProductID == productId);
+
+            return View(product);
+        }
 
         [HttpPost]
         public IActionResult Edit(Product product)
@@ -51,6 +75,43 @@ namespace GameStore.Controllers
                 TempData["message"] = $"{deletedProduct.Name} was deleted";
             }
             return RedirectToAction("Index");
+        }
+
+        public IActionResult UploadImg(IFormFile uploadImg, int productId)
+        {
+            if (uploadImg == null || uploadImg.Length == 0)
+            {
+                ModelState.AddModelError("Image", "Изображение не выбрано");
+
+                return RedirectToAction("Edit", new { productId = productId });
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                uploadImg.CopyTo(memoryStream);
+
+                // Upload the file if less than 2 MB
+                if (memoryStream.Length < 2097152)
+                {
+                    var img = new Image()
+                    {
+                        Content = memoryStream.ToArray()
+                    };
+
+                    _context.Images.Add(img);
+                    _context.SaveChanges();
+
+                    var product = _context.Products.First(s => s.ProductID == productId);
+                    product.ImageID = img.ImageID;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    ModelState.AddModelError("Image", "Файл должен быть меньше 2 мб.");
+                }
+            }
+
+            return RedirectToAction("Edit", new { productId = productId });
         }
     }
 }

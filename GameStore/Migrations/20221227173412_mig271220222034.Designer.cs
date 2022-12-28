@@ -3,6 +3,7 @@ using System;
 using GameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221227173412_mig271220222034")]
+    partial class mig271220222034
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -52,7 +55,7 @@ namespace GameStore.Migrations
 
                     b.HasKey("ImageID");
 
-                    b.ToTable("Images");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("GameStore.Data.Entities.Order", b =>
@@ -127,8 +130,7 @@ namespace GameStore.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("ImageID")
-                        .IsUnique();
+                    b.HasIndex("ImageID");
 
                     b.ToTable("Products");
                 });
@@ -347,8 +349,8 @@ namespace GameStore.Migrations
             modelBuilder.Entity("GameStore.Data.Entities.Product", b =>
                 {
                     b.HasOne("GameStore.Data.Entities.Image", "Image")
-                        .WithOne("Product")
-                        .HasForeignKey("GameStore.Data.Entities.Product", "ImageID");
+                        .WithMany()
+                        .HasForeignKey("ImageID");
 
                     b.Navigation("Image");
                 });
@@ -402,11 +404,6 @@ namespace GameStore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GameStore.Data.Entities.Image", b =>
-                {
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("GameStore.Data.Entities.Order", b =>

@@ -1,0 +1,47 @@
+﻿@model ProductViewModel
+
+<div class="container">
+    <div class="row py-5">
+        <div class="col-12 col-sm-6">
+            <h3 class="d-inline-block d-sm-none">@Model.Product.Name</h3>
+            <div class="col-12">
+                <img src="https://dummyimage.com/300x200/d81b60/ffffff.png" class="product-image" alt="Product Image">
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <h3 class="my-3">@Model.Product.Name</h3>
+            <p>@Model.Product.Description</p>
+
+            <hr>
+
+            <div class="bg-gray py-2 px-3 mt-4">
+                <h2 class="mb-0">
+                    @Model.Product.Price.ToString("c")
+                </h2>
+            </div>
+
+            <div class="mt-4">
+                <div class="btn btn-primary btn-lg btn-flat">
+                    <i class="fas fa-cart-plus"></i>
+                    В корзину
+                </div>
+            </div>
+
+            <div class="mt-4 product-share">
+                <a href="#" class="text-gray">
+                    <i class="fab fa-facebook-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                    <i class="fab fa-twitter-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                    <i class="fas fa-envelope-square fa-2x"></i>
+                </a>
+                <a href="#" class="text-gray">
+                    <i class="fas fa-rss-square fa-2x"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>

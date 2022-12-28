@@ -4,30 +4,73 @@
     Layout = "_AdminLayout";
 }
 
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="ProductID" />
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <input asp-for="Name" class="form-control" />
+<div class="row justify-content-center">
+    <div class="col-6">
+        <form asp-action="Edit" method="post">
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="ProductID" hidden />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Category" class="control-label"></label>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success" type="submit">Сохранить</button>
+                    <a asp-action="Index" class="btn btn-secondary">Назад</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <div><span asp-validation-for="Description" class="text-danger"></span></div>
-        <textarea asp-for="Description" class="form-control"></textarea>
+
+    <div class="col-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изображение</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                @if (0 != @Model.ProductID)
+                {
+                    if (null != @Model.ImageID)
+                    {
+                        <img id="productImage" class="img-fluid p-3" src="data:image/jpg;base64, @Convert.ToBase64String(Model.Image?.Content)">
+                    }
+                    <div class="form-group">
+                        <form asp-action="UploadImg" method="post" enctype="multipart/form-data">
+                            <input name="productId" value="@Model.ProductID" hidden />
+                            <input type="file" accept="image/png, image/jpeg" name="uploadImg" />
+                            <input class="btn btn-primary" type="submit" value="Загрузить" />
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <h3 class="card-title">Надо сохраннить запись</h3>
+                }
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <!-- /.card-body -->
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Category"></label>
-        <div><span asp-validation-for="Category" class="text-danger"></span></div>
-        <input asp-for="Category" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Price"></label>
-        <div><span asp-validation-for="Price" class="text-danger"></span></div>
-        <input asp-for="Price" class="form-control" />
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Save</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </div>
-</form>
+
+</div>
